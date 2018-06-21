@@ -14,17 +14,14 @@
 ## 安装与使用
 
 ```bash
-yarn add -d simplemock
+yarn add -d @lzwme/simple-mock
 ```
 
 **使用：**
 
-在 nodejs 服务中的 API 代理部分，加入 `saveApi` 相关逻辑。示例参考：
+在 nodejs 服务中的 API 代理部分，加入 `saveApi` 相关逻辑。
 
-
-**使用示例：**
-
-这里以 `http-proxy` 作为代理示例，具体参见 `server/app.js` 中的源码。
+这里以 `http-proxy` 作为代理示例，具体参见 `server/app.js` 中的源码。示例参考：
 
 ```js
 const app = require('express')();
@@ -38,7 +35,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 /**
  * 接口代理配置与mock
  */
-const apiMock = require('simplemock');
+const apiMock = require('@lzwme/simple-mock');
 
 app.all('/{api,rest}/**', function(req, res) {
   // 开发模式下且可 mock 的情况
