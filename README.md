@@ -1,14 +1,14 @@
 
 # SIMPLE-MOCK
 
-以注入到 `node server` 的 API 代理方式，实现简洁的 API MOCK 功能。
+以注入到 `node server` 的 API 代理方式，实现简洁而功能强大的 API MOCK 功能。附带自动保存真实 API 接口返回数据功能。
 
-## mock API 的作用
+## MOCK API 的作用
 
 - 前后端新功能开发完全分离：API 未出来但规则已约定好，前端可提前开发和测试
 - 不受后端问题牵制：API 不可用时替代，不阻塞前端开发
 - 开发体验提升：API 请求多、慢，MOCK 情况下，开发调试体验更好
-- mock规则辅助：提供了自动保存后端 API 请求内容的辅助功能，编写 mock 内容规则不再麻烦
+- MOCK规则辅助：提供了自动保存后端 API 请求内容的辅助功能，编写 mock 内容规则不再麻烦
 - more...
 
 ## 安装与使用
@@ -119,7 +119,19 @@ npm run dev
 
 ### 配置
 
-- 环境变量方式：
+- 配置文件方式
+
+项目根目录 `simple-mock-config.js` 为配置文件，应自行创建，并配置 `.gitignore` 中忽略它，以便于随时修改 mock 行为而不影响其他开发者。配置内容示例参考：
+```js
+module.exports = {
+  mockFileDir: 'mock', // path.reslove(process。cwd(), 'mock'), // 指定 mock 文件存放的目录
+  isEnableMock: false, // 是否开启 Mock API 功能
+  isAutoSaveApi: true, // 是否自动保存远端请求的 API
+  isForceSaveApi: false, // 是否强制保存，否则本地有时不再保存
+}
+```
+
+- 环境变量方式
 
 环境变量重要用于开启或关闭相关功能。其开启功能的优先级高于 `simple-mock-config.js` 中的配置。
 
@@ -130,18 +142,6 @@ process.env.MOCKAPI_ENABLE=mock
 process.env.MOCKAPI_AUTOSAVE=save
 // 强制每次请求都保存API返回内容(未开启MOCK功能时有效，一般不推荐开启)
 process.env.MOCKAPI_AUTOSAVE_FORCE=force
-```
-
-- 配置文件方式：
-
-项目根目录 `simple-mock-config.js` 为配置文件，应自行创建，并配置 `.gitignore` 中忽略它，以便于随时修改 mock 行为。主要示例配置参考：
-```js
-module.exports = {
-  mockFileDir: 'mock', // path.reslove(process。cwd(), 'mock'), // 指定 mock 文件存放的目录
-  isEnableMock: false, // 是否开启 Mock API 功能
-  isAutoSaveApi: true, // 是否自动保存远端请求的 API
-  isForceSaveApi: false, // 是否强制保存，否则本地有时不再保存
-}
 ```
 
 ### API
@@ -155,7 +155,7 @@ module.exports = {
 
 用于请求返回时，是否保存返回的 API 信息。用于后端 API 代理转发信息返回时注入。
 
-## FAQ
+## FAQ / MOCK规则编写示例与技巧
 
 - 如何保存通过代理返回的信息？
 
@@ -169,6 +169,7 @@ process.env.MOCKAPI_AUTOSAVE=save
 - 在开启 mock 模式下，如何忽略某个 API 请求的 mock，从真实后端 API 去请求？
 
 在 `mock/customdata`目录中，编辑该 API 对应的 mock 文件，将返回值改为 `__ignore_mock__`。如果需要根据参数来处理，也是可以实现的，示例：
+
 ```js
 // 忽略mock
 module.exports = '__ignore_mock__';
@@ -182,6 +183,7 @@ module.exports = req => {
 
   return {...};
 }
+```
 
 - `小技巧`：对于同一 API，如何快速保存不同参数返回的不同的值？
 
@@ -189,8 +191,6 @@ module.exports = req => {
 
 此时可关闭mock，开启自动保存和强制保存：
 ```js
-
-```
 module.exports = {
   mockFileDir: 'mock',
   isEnableMock: false,
