@@ -1,0 +1,48 @@
+{
+  "name": "@lzwme/simple-mock",
+  "version": "0.0.3",
+  "description": "Simple mock used in node server",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lzwme/simple-mock.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lzwme/simple-mock/issues"
+  },
+  "main": "lib/index.js",
+  "keywords": [
+    "apimock",
+    "mock",
+    "node",
+    "express",
+    "http-proxy"
+  ],
+  "author": {
+    "name": "lzwme",
+    "email": "lzwy0820@qq.com"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">= 6.0.0"
+  },
+  "scripts": {
+    "bootstrap": "yarn || npm install",
+    "start": "npm run bootstrap && npm run serve && npm run test:watch",
+    "serve": "node server/www.js",
+    "test": "node_modules/.bin/mocha",
+    "test:watch": "node_modules/.bin/mocha --watch",
+    "build": "grunt prod"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "concat-stream": "^1.6.2"
+  },
+  "devDependencies": {
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "http-proxy": "^1.17.0",
+    "mocha": "^5.1.1"
+  }
+}

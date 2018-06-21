@@ -1,0 +1,37 @@
+customdata
+!customdata/README.md
+
+# OS X
+.DS_Store*
+Icon?
+._*
+.idea
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+/release
+builder/windows
+builder/res
+.vscode
+
+# Linux
+.directory
+*~
+
+
+# npm
+node_modules
+output
+*.log
+*.gz
+
+
+# Coveralls
+coverage
+
+# Benchmarking
+benchmarks/graphs
+
+*_bak
